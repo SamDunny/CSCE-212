@@ -1,0 +1,365 @@
+#written by Sam Dunny
+#CSCE 190, Wang
+.data
+space: .asciiz "\n"
+string: .asciiz "The South Carolina Gamecocks football program represents the University of South Carolina in the sport of American football. The Gamecocks compete in the Football Bowl Subdivision of the National Collegiate Athletic Association (NCAA) and the Eastern Division of the Southeastern Conference. Will Muschamp currently serves as the team's head coach. They play their home games at WilliamsBrice Stadium. Currently, it is the 20th largest stadium in college football."
+teststring1: .asciiz "gggggaaaaammmmmeeeeecccccoooooccccckkkkksssss"
+teststring2: .asciiz "Ruuuuuuuubbbbbbyyyyy"
+teststring3: .asciiz ""
+project3input1: .asciiz "MIPS P5600 CPU is based on the MIPS32 ISA architecture, supporting up to six cores achieving the industry’s leading CoreMark/MHz score per core. It supports high performance data parallel operations."
+project3input2: .asciiz "MIPS P5600 CPU is based on the MIPS32 ISA architecture"
+project3input3: .asciiz "MIPS P5600 CPU is based on the MIPS32 ISA architecture, supporting up to six cores achieving the industry’s leading CoreMark/MHz"
+project3input4: .asciiz "MIPS P5600 CPU is based on the MIPS32 ISA architecture, supporting up to six cores achieving the industry’s leading CoreMark/MHz score per core. It supports high performance data parallel operations. One Two Three Four Five Six Seven Eight Nine Ten"
+project3input5: .asciiz "MIPS P5600 CPU is based on the MIPS32 ISA architecture, supporting up to six cores achieving the industry’s leading CoreMark/MHz score per core. It supports high performance data parallel operations. One Two Three Four Five Six Seven Eight Nine Ten. Eleven Twelve Thirteen Fourteen Fifteen Sixteen Seventeen Eighteen Nineteen Twenty"
+letter1: .asciiz "G:"
+letter2: .asciiz "A:"
+letter3: .asciiz "M:"
+letter4: .asciiz "E:"
+letter5: .asciiz "C:"
+letter6: .asciiz "O:"
+letter7: .asciiz "K:"
+letter8: .asciiz "S:"
+hashtag: .asciiz "#"
+
+.text
+main:
+	#loop variables
+	li $t2, 0 # G counter
+	li $t3, 0 # A counter
+	li $t4, 0 # M counter
+	li $t5, 0 # E counter
+	li $t6, 0 # C counter
+	li $t7, 0 # O counter
+	li $t8, 0 # K counter
+	li $t9, 0 # S counter
+	la $t0, project3input1 # loads address of string memory to $t0
+	
+	# loop to find the length of the string
+	LoopMain:
+ 		lb   $s0, 0($t0)
+    		beq  $s0, $zero, QuitMain # check to make sure byte isn't null	
+    		
+    		li $t1, 71
+    		beq $s0, $t1, GQuit # check for capital G
+    		li $t1, 103
+    		beq $s0, $t1, GQuit # check for lowercase g
+    		
+    		li $t1, 65
+    		beq $s0, $t1, AQuit # check for capital A
+    		li $t1, 97
+    		beq $s0, $t1, AQuit # check for lowercase a
+    		
+    		li $t1, 77
+    		beq $s0, $t1, MQuit # check for capital M
+    		li $t1, 109
+    		beq $s0, $t1, MQuit # check for lowercase m
+    		
+    		li $t1, 69
+    		beq $s0, $t1, EQuit # check for capital E
+    		li $t1, 101
+    		beq $s0, $t1, EQuit # check for lowercase e
+    		
+    		li $t1, 67
+    		beq $s0, $t1, CQuit # check for capital C
+    		li $t1, 99
+    		beq $s0, $t1, CQuit # check for lowercase c
+    		
+    		li $t1, 79
+    		beq $s0, $t1, OQuit # check for capital O
+    		li $t1, 111
+    		beq $s0, $t1, OQuit # check for lowercase o
+    		
+    		li $t1, 75
+    		beq $s0, $t1, KQuit # check for capital K
+    		li $t1, 107
+    		beq $s0, $t1, KQuit # check for lowercase k
+    		
+    		li $t1, 83
+    		beq $s0, $t1, SQuit # check for capital S
+    		li $t1, 115
+    		beq $s0, $t1, SQuit # check for lowercase s	    		    		    		
+    		
+    		j Conflux
+    		
+    		GQuit:
+    			addi $t2, $t2, 1 # adds to G counter
+    			j Conflux
+    		AQuit:
+    			addi $t3, $t3, 1 # adds to A counter
+    			j Conflux
+    		MQuit:
+    			addi $t4, $t4, 1 # adds to M counter
+    			j Conflux
+    		EQuit:
+    			addi $t5, $t5, 1 # adds to E counter
+    			j Conflux
+    		CQuit:
+    			addi $t6, $t6, 1 # adds to C counter
+    			j Conflux
+    		OQuit:
+    			addi $t7, $t7, 1 # adds to O counter
+    			j Conflux
+    		KQuit:
+    			addi $t8, $t8, 1 # adds to K counter
+    			j Conflux
+    		SQuit:
+    			addi $t9, $t9, 1 # adds to S counter
+    			j Conflux
+    		Conflux:
+    			addi $t0, $t0, 1 # adds to address
+    			j LoopMain	
+	
+	QuitMain:
+	
+	#PRINTS G COUNT
+	li $v0, 4 #syscall to print_string
+	la $a0, letter1 #prints out the letter prompt
+	syscall
+	li $v0, 1 #syscall to print_int
+	move $a0, $t2 
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	
+	#PRINTS A COUNT
+	li $v0, 4 #syscall to print_string
+	la $a0, letter2 #prints out the letter prompt
+	syscall
+	li $v0, 1 #syscall to print_int
+	move $a0, $t3 
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	
+	#PRINTS M COUNT
+	li $v0, 4 #syscall to print_string
+	la $a0, letter3 #prints out the letter prompt
+	syscall
+	li $v0, 1 #syscall to print_int
+	move $a0, $t4 
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	
+	#PRINTS E COUNT
+	li $v0, 4 #syscall to print_string
+	la $a0, letter4 #prints out the letter prompt
+	syscall
+	li $v0, 1 #syscall to print_int
+	move $a0, $t5 
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	
+	#PRINTS C COUNT
+	li $v0, 4 #syscall to print_string
+	la $a0, letter5 #prints out the letter prompt
+	syscall
+	li $v0, 1 #syscall to print_int
+	move $a0, $t6 
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	
+	#PRINTS O COUNT
+	li $v0, 4 #syscall to print_string
+	la $a0, letter6 #prints out the letter prompt
+	syscall
+	li $v0, 1 #syscall to print_int
+	move $a0, $t7 
+	syscall	
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	
+	#PRINTS C COUNT
+	li $v0, 4 #syscall to print_string
+	la $a0, letter5 #prints out the letter prompt
+	syscall
+	li $v0, 1 #syscall to print_int
+	move $a0, $t6 
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	
+	#PRINTS K COUNT
+	li $v0, 4 #syscall to print_string
+	la $a0, letter7 #prints out the letter prompt
+	syscall
+	li $v0, 1 #syscall to print_int
+	move $a0, $t8 
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	
+	#PRINTS S COUNT
+	li $v0, 4 #syscall to print_string
+	la $a0, letter8 #prints out the letter prompt
+	syscall
+	li $v0, 1 #syscall to print_int
+	move $a0, $t9 
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	
+		## EXTRA CREDIT ##	
+	
+	li $v0, 4 #syscall to print_string		
+	la $a0, space #prints out new line
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, letter1 #prints out the letter prompt
+	syscall
+	LoopG:
+		beq $t2, $zero, Quit1
+		li $v0, 4
+		la $a0, hashtag
+		syscall
+		addi $t2, $t2, -1
+		j LoopG
+			
+	Quit1: 
+		
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, letter2 #prints out the letter prompt
+	syscall
+	LoopA:
+		beq $t3, $zero, Quit2
+		li $v0, 4
+		la $a0, hashtag
+		syscall
+		addi $t3, $t3, -1
+		j LoopA
+			
+	Quit2:
+		
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, letter3 #prints out the letter prompt
+	syscall
+	LoopM:
+		beq $t4, $zero, Quit3
+		li $v0, 4
+		la $a0, hashtag
+		syscall
+		addi $t4, $t4, -1
+		j LoopM
+			
+	Quit3:
+		
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, letter4 #prints out the letter prompt
+	syscall
+	LoopE:
+		beq $t5, $zero, Quit4
+		li $v0, 4
+		la $a0, hashtag
+		syscall
+		addi $t5, $t5, -1
+		j LoopE
+		
+	Quit4: 
+		
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, letter5 #prints out the letter prompt
+	syscall
+		
+	li $t1, 0
+	addi $t1, $t6, 0 #duplicates $t6, or C for the second iteration
+	
+	LoopC:
+		beq $t6, $zero, Quit5
+		li $v0, 4
+		la $a0, hashtag
+		syscall
+		addi $t6, $t6, -1
+		j LoopC
+			
+	Quit5:
+	
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, letter6 #prints out the letter prompt
+	syscall
+	LoopO:
+		beq $t7, $zero, Quit6
+		li $v0, 4
+		la $a0, hashtag
+		syscall
+		addi $t7, $t7, -1
+		j LoopO
+			
+	Quit6: 	 
+		
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, letter5 #prints out the letter prompt
+	syscall
+	LoopC2:
+		beq $t1, $zero, Quit7
+		li $v0, 4
+		la $a0, hashtag
+		syscall
+		addi $t1, $t1, -1
+		j LoopC2
+			
+	Quit7:
+	
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, letter7 #prints out the letter prompt
+	syscall
+	LoopK:
+		beq $t8, $zero, Quit8
+		li $v0, 4
+		la $a0, hashtag
+		syscall
+		addi $t8, $t8, -1
+		j LoopK
+			
+	Quit8:	
+
+	li $v0, 4 #syscall to print_string
+	la $a0, space #prints out new line
+	syscall
+	li $v0, 4 #syscall to print_string
+	la $a0, letter8 #prints out the letter prompt
+	syscall
+	LoopS:
+		beq $t9, $zero, Quit9
+		li $v0, 4
+		la $a0, hashtag
+		syscall
+		addi $t9, $t9, -1
+		j LoopS
+		
+	Quit9:	 
+
+	#END
+	li $v0, 10
+	syscall	
