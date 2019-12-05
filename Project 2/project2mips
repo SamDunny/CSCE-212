@@ -1,5 +1,4 @@
 #written by Sam Dunny
-#CSCE 190, Wang
 .data
 space: .asciiz "\n"
 string: .asciiz "The South Carolina Gamecocks football program represents the University of South Carolina in the sport of American football. The Gamecocks compete in the Football Bowl Subdivision of the National Collegiate Athletic Association (NCAA) and the Eastern Division of the Southeastern Conference. Will Muschamp currently serves as the team's head coach. They play their home games at WilliamsBrice Stadium. Currently, it is the 20th largest stadium in college football."
